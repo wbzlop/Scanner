@@ -40,4 +40,38 @@ mGPUImage.setFilter(filter);
 ### 解决方案
 [hed-tutorial-for-document-scanning](https://github.com/fengjian0106/hed-tutorial-for-document-scanning)(博客地址这里：[手机端运行卷积神经网络的一次实践 -- 基于 TensorFlow 和 OpenCV 实现文档检测功能](http://fengjian0106.github.io/2017/05/08/Document-Scanning-With-TensorFlow-And-OpenCV/))<br>
 这里还有一篇博客参考[Fast and Accurate Document Detection for Scanning](https://blogs.dropbox.com/tech/2016/08/fast-and-accurate-document-detection-for-scanning/)<br>
-[hed-tutorial-for-document-scanning](https://github.com/fengjian0106/hed-tutorial-for-document-scanning)只提供了iOS的demo,笔者参考demo，写了Android，在这里提供大家参考。
+[hed-tutorial-for-document-scanning](https://github.com/fengjian0106/hed-tutorial-for-document-scanning)只提供了iOS的demo,笔者参考demo，写了Android，并根据实际使用情况修改了部分参数，在这里提供大家参考。
+### 注意
+C++代码片段依赖[SmartCropper](https://github.com/pqpo/SmartCropper)，感兴趣读者可自行修改。
+### 使用
+1.gradle加入
+```groovy
+
+dependencies {
+    implementation 'org.tensorflow:tensorflow-android:+'
+}
+```
+2.sample
+```java
+private HEDDetect hedDetect;
+
+......
+
+hedDetect = new HEDDetect(getContext());
+hedDetect.run(bitmap, new HEDDetect.HEDDetectAction() {
+                @Override
+                public void complete(float[] output) {
+                    mCropView.setImageToCrop(bitmap,output);
+                }
+            });
+            
+......
+
+
+Point[] scan = SmartCropper.hedScan(hedData,bmp.getWidth(),bmp.getHeight());
+
+
+
+```
+### 已知问题
+1.效率不高，大约0.9s,直接用了原作者训练的模型，尝试部署 TensorFlow Lite 但是生成.tflite 文件一直失败，脑壳疼！！！
