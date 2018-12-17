@@ -9,7 +9,7 @@
 ### 解决方案
 [GPUImage](https://github.com/cats-oss/android-gpuimage)<br>
 它提供的 GPUImageFilterGroup 可让使用者自由组合滤镜效果。<br>
-这里只提供最受欢迎的滤镜（统计结果）—— 黑白滤镜。笔者针对文字修改了滤波算子，该滤镜可以保留文字细节，同时过滤噪点和阴影。<br>
+这里只提供黑白滤镜。笔者针对文字修改了滤波算子，该滤镜可以保留文字细节，同时过滤噪点和阴影。<br>
 ```java
 private GLSurfaceCompatView surfaceView;
 private GPUImage mGPUImage;
